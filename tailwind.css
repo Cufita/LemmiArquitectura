@@ -1,0 +1,347 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Geist';
+  src: url('https://fonts.gstatic.com/s/geist/v3/gyByhwUxId8gMEwcGFU.woff2') format("woff2");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Geist';
+  src: url('https://fonts.gstatic.com/s/geist/v3/gyByhwUxId8gMEwcGFU.woff2') format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Geist';
+  src: url('https://fonts.gstatic.com/s/geist/v3/gyByhwUxId8gMEwcGFU.woff2') format("woff2");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Geist';
+  src: url('https://fonts.gstatic.com/s/geist/v3/gyByhwUxId8gMEwcGFU.woff2') format("woff2");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('https://framerusercontent.com/assets/vQyevYAyHtARFwPqUzQGpnDs.woff2') format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 47.4% 11.2%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+
+    --card: transparent;
+    --card-foreground: 222.2 47.4% 11.2%;
+
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 210 40% 98%;
+
+    --ring: 215 20.2% 65.1%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 224 71% 4%;
+    --foreground: 213 31% 91%;
+
+    --muted: 223 47% 11%;
+    --muted-foreground: 215.4 16.3% 56.9%;
+
+    --accent: 216 34% 17%;
+    --accent-foreground: 210 40% 98%;
+
+    --popover: 224 71% 4%;
+    --popover-foreground: 215 20.2% 65.1%;
+
+    --border: 216 34% 17%;
+    --input: 216 34% 17%;
+
+    --card: transparent;
+    --card-foreground: 213 31% 91%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 1.2%;
+
+    --secondary: 222.2 47.4% 11.2%;
+    --secondary-foreground: 210 40% 98%;
+
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 40% 98%;
+
+    --ring: 216 34% 17%;
+
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  /* Elementos semánticos HTML con tipografía consistente UX */
+  h1 {
+    @apply text-2xl md:text-5xl lg:text-6xl xl:text-7xl;
+    @apply font-semibold leading-tight tracking-tight;
+    @apply font-Geist;
+  }
+
+  h2 {
+    @apply text-xl md:text-3xl lg:text-4xl xl:text-5xl;
+    @apply font-semibold leading-tight tracking-tight;
+    @apply font-Geist;
+  }
+
+  h3 {
+    @apply text-lg md:text-2xl lg:text-3xl;
+    @apply font-semibold leading-tight;
+    @apply font-Geist;
+  }
+
+  h4 {
+    @apply text-base md:text-xl lg:text-2xl;
+    @apply font-medium leading-tight;
+    @apply font-Geist;
+  }
+
+  h5 {
+    @apply text-sm md:text-lg lg:text-xl;
+    @apply font-medium leading-snug;
+    @apply font-Geist;
+  }
+
+  h6 {
+    @apply text-xs md:text-base lg:text-lg;
+    @apply font-medium leading-snug;
+    @apply font-Geist;
+  }
+
+  p {
+    @apply text-sm md:text-base;
+    @apply font-light leading-relaxed;
+    @apply font-Geist;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+}
+
+@layer components {
+  /* Sistema Tipográfico Global - Lemmi Arquitectura */
+  /* Diseñado siguiendo principios UX para legibilidad óptima */
+
+  /* Headings principales */
+  .heading-xl {
+    @apply text-3xl md:text-5xl lg:text-6xl xl:text-7xl;
+    @apply font-semibold leading-tight tracking-tight;
+    @apply font-Geist;
+  }
+
+  .heading-lg {
+    @apply text-2xl md:text-3xl lg:text-4xl xl:text-5xl;
+    @apply font-semibold leading-tight tracking-tight;
+    @apply font-Geist;
+  }
+
+  .heading-md {
+    @apply text-xl md:text-2xl lg:text-3xl;
+    @apply font-semibold leading-tight;
+    @apply font-Geist;
+  }
+
+  .heading-sm {
+    @apply text-lg md:text-xl lg:text-2xl;
+    @apply font-medium leading-tight;
+    @apply font-Geist;
+  }
+
+  .heading-xs {
+    @apply text-base md:text-lg lg:text-xl;
+    @apply font-medium leading-snug;
+    @apply font-Geist;
+  }
+
+  /* Párrafos y texto de contenido */
+  .text-lead {
+    @apply text-base md:text-lg lg:text-xl;
+    @apply font-light leading-relaxed;
+    @apply font-Geist;
+  }
+
+  .text-body {
+    @apply text-sm md:text-base;
+    @apply font-light leading-relaxed;
+    @apply font-Geist;
+  }
+
+  .text-body-sm {
+    @apply text-xs md:text-sm;
+    @apply font-light leading-relaxed;
+    @apply font-Geist;
+  }
+
+  .text-caption {
+    @apply text-xs;
+    @apply font-light leading-normal;
+    @apply font-Geist;
+  }
+
+  /* Casos especiales para diferentes contextos */
+  .hero-title {
+    @apply text-3xl md:text-5xl lg:text-6xl xl:text-7xl;
+    @apply font-semibold leading-none tracking-tight;
+    @apply font-Geist uppercase;
+    line-height: 0.8;
+  }
+
+  .hero-subtitle {
+    @apply text-base md:text-lg lg:text-xl xl:text-2xl;
+    @apply font-light leading-relaxed;
+    @apply font-Geist;
+  }
+
+  .section-title {
+    @apply text-xl md:text-2xl lg:text-3xl xl:text-4xl;
+    @apply font-semibold leading-tight;
+    @apply font-Geist;
+  }
+
+  .section-subtitle {
+    @apply text-sm md:text-base lg:text-lg;
+    @apply font-light leading-relaxed;
+    @apply font-Geist;
+  }
+
+  /* Stats y números destacados */
+  .stat-number {
+    @apply text-2xl md:text-3xl lg:text-4xl xl:text-5xl;
+    @apply font-light leading-none;
+    @apply font-Geist;
+  }
+
+  .stat-label {
+    @apply text-sm md:text-base;
+    @apply font-light leading-normal;
+    @apply font-Geist;
+  }
+
+  /* Botones y CTAs */
+  .cta-text {
+    @apply text-sm md:text-base;
+    @apply font-light tracking-wide;
+    @apply font-Geist;
+  }
+
+  /* Navegación */
+  .nav-link {
+    @apply text-sm md:text-base;
+    @apply font-light;
+    @apply font-Geist;
+  }
+
+  .nav-brand {
+    @apply text-lg md:text-xl lg:text-2xl;
+    @apply font-semibold uppercase;
+    @apply font-Geist;
+  }
+}
+
+@layer utilities {
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-pulse-slow {
+    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .animate-bounce-slow {
+    animation: bounce 2s infinite;
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  .gradient-text {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .glass-effect {
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  }
+}
