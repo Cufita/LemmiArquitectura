@@ -1,9 +1,15 @@
-export const navigationLinks = [
-  { id: 'home', href: '/', label: 'Inicio' },
-  { id: 'services', href: '/#services', label: 'Servicios' },
-  { id: 'properties', href: '/#properties', label: 'Propiedades' },
-  { id: 'about', href: '/#about', label: 'Nosotros' },
-  { id: 'agents', href: '/#agents', label: 'Agentes' },
-  { id: 'testimonials', href: '/#testimonials', label: 'Testimonios' },
-  { id: 'faq', href: '/#faq', label: 'FAQ' },
-];
+export interface NavLink {
+  readonly id: string;
+  readonly href: string;
+  readonly label: string;
+}
+
+export const navigationLinks: NavLink[] = [
+  { id: 'servicios', href: '#servicios', label: 'Servicios' },
+  { id: 'obras', href: '#obras', label: 'Obras' },
+  { id: 'reels', href: '#reels', label: 'Instagram' },
+  { id: 'testimonios', href: '#testimonios', label: 'Clientes' },
+  { id: 'equipo', href: '#equipo', label: 'Equipo' },
+  { id: 'faq', href: '#faq', label: 'Preguntas' },
+  { id: 'contacto', href: '#contacto', label: 'Contacto' },
+] as const;

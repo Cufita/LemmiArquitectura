@@ -1,153 +1,67 @@
-import { motion } from 'framer-motion';
-import { heroStats } from '../../data/hero';
-import HeroBackground from '../../assets/images/HeroBackground.png';
-import AnimatedCounter from '../ui/AnimatedCounter';
-import Button from '../ui/Button';
+import { motion } from 'motion/react';
+import { whatsappMessages } from '../../data/brand';
+import { transition } from '../../lib/motion';
+import useReducedMotion from '../../hooks/useReducedMotion';
+import WhatsAppCTA from '../ui/WhatsAppCTA';
+import heroImg from '../../assets/hero/hero.webp';
 
+/**
+ * Full-bleed photograph of a real work, the promise over it, one primary action
+ * and a way to browse.
+ */
 export default function HeroSection() {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.8,
-        ease: [0.25, 0.46, 0.45, 0.94]
-      }
-    }
-  };
+  const reduced = useReducedMotion();
+  const rise = (delay: number) => ({
+    initial: { opacity: 0, y: reduced ? 0 : 20 },
+    animate: { opacity: 1, y: 0 },
+    transition: { ...transition.focal, delay: reduced ? 0 : delay },
+  });
 
   return (
-    <motion.section 
-      className="relative content-center items-center box-border caret-transparent gap-x-0 flex flex-col shrink-0 h-[750px] md:h-[1000px] justify-center gap-y-0 w-full overflow-hidden pt-24 pb-8 px-4 rounded-[32px] md:flex-row md:pt-32 md:pb-10 md:px-6"
-      initial="hidden"
-      animate="visible"
-      variants={containerVariants}
-    >
-  <div className="w-full max-w-[1700px] mx-auto flex flex-col md:flex-row h-full">
-  <div className="relative content-start items-start bg-black box-border caret-transparent gap-x-0 flex basis-0 flex-col grow shrink-0 h-px justify-center gap-y-0 w-full overflow-hidden px-6 rounded-[32px] md:h-full md:w-px md:pl-20 md:pr-0">
-        <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: `url(${HeroBackground})` }} />
-        <div className="absolute bg-black/60 box-border caret-transparent shrink-0 h-full w-full z-[1] overflow-hidden left-0 top-0 rounded-[32px]"></div>
-        <div className="w-full max-w-[1400px] mx-auto">
-        <motion.div 
-          className="relative content-start items-start box-border caret-transparent gap-x-6 flex flex-col shrink-0 h-min justify-start max-w-[450px] gap-y-6 w-full z-[2] overflow-hidden md:gap-x-8 md:max-w-[800px] md:gap-y-8 md:w-3/5"
-          variants={itemVariants}
-        >
-          <motion.div 
-            className="relative box-border caret-transparent flex flex-col shrink-0 justify-start break-words w-full"
-            variants={itemVariants}
+    <section className="relative flex min-h-[100svh] w-full flex-col overflow-hidden bg-zinc-950 pt-[72px] md:pt-[80px]">
+      <img
+        src={heroImg}
+        alt="Maqueta arquitectónica de una construcción frente a la playa, LEMMI arquitectura, Mar del Plata"
+        className="absolute inset-0 h-full w-full object-cover object-[65%_50%]"
+        fetchpriority="high"
+        decoding="async"
+      />
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-zinc-950/40 bg-gradient-to-r from-zinc-950/90 via-zinc-950/70 to-zinc-950/20 md:bg-zinc-950/15 md:via-zinc-950/60"
+      />
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-zinc-950/85 to-transparent"
+      />
+
+      <div className="relative z-10 mx-auto flex w-full max-w-[1440px] flex-1 flex-col justify-center px-5 py-16 md:px-10 md:py-20 lg:px-20">
+        <div className="flex max-w-[52rem] flex-col gap-6 md:gap-7">
+          <motion.h1
+            className="display text-balance text-white lg:text-7xl"
+            {...rise(0)}
           >
-            <motion.h1 
-              className="hero-title text-white flex flex-wrap gap-x-3 md:gap-x-5 leading-[1.0]"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ 
-                duration: 1,
-                delay: 0.5,
-                ease: [0.25, 0.46, 0.45, 0.94]
-              }}
+            Te acompañamos a vender, comprar o construir en Mar del Plata
+          </motion.h1>
+
+          <motion.p className="text-lead text-white/95" {...rise(0.1)}>
+            Somos LEMMI arquitectura, estudio de arquitectura en Mar del Plata. Revisamos tu propiedad, ordenamos los planos y construimos a precio cerrado.
+          </motion.p>
+
+          <motion.div className="flex flex-col gap-3 pt-2 sm:flex-row" {...rise(0.18)}>
+            <WhatsAppCTA message={whatsappMessages.general} variant="light" className="w-full px-8 py-4 sm:w-auto">
+              Coordinar visita sin cargo
+            </WhatsAppCTA>
+            <a
+              href="#obras"
+              className="inline-flex w-full items-center justify-center rounded-full border border-white/60 px-8 py-4 text-[0.9375rem] font-medium text-white transition-colors duration-200 hover:bg-white hover:text-zinc-900 sm:w-auto"
             >
-              {['Lleva', 'tu', 'idea', 'inmobiliaria', 'a', 'la', 'realidad'].map((word, index) => (
-                <motion.span
-                  key={word}
-                  className="inline-block"
-                  initial={{ opacity: 0, y: 50 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{
-                    duration: 0.6,
-                    delay: 0.7 + index * 0.1,
-                    ease: [0.25, 0.46, 0.45, 0.94]
-                  }}
-                >
-                  {word}
-                </motion.span>
-              ))}
-            </motion.h1>
+              Ver obras
+            </a>
           </motion.div>
-          <motion.div 
-            className="relative content-center items-center box-border caret-transparent gap-x-2.5 flex shrink-0 h-min justify-center max-w-[85%] gap-y-2.5 w-full overflow-hidden"
-            variants={itemVariants}
-          >
-            <div className="relative box-border caret-transparent flex basis-0 flex-col grow shrink-0 justify-start break-words w-px">
-              <motion.p 
-                className="hero-subtitle text-white leading-tight"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.8, delay: 1.5 }}
-              >
-                En Lemmi Arquitectura llevamos décadas creando casas, edificios y balnearios que combinan minimalismo, calidez y funcionalidad.
-              </motion.p>
-            </div>
-          </motion.div>
-          <motion.div 
-            className="relative box-border caret-transparent shrink-0"
-            variants={itemVariants}
-          >
-            <div className="box-content caret-black block md:aspect-auto md:box-border md:caret-transparent md:contents md:overscroll-x-auto md:overscroll-y-auto md:snap-align-none md:snap-normal md:snap-none md:decoration-auto md:underline-offset-auto md:[mask-position:0%] md:bg-left-top md:scroll-m-0 md:scroll-p-[auto]">
-              <Button
-                href="./#property"
-                showArrow={false}
-              >
-                Ver Propiedades
-              </Button>
-            </div>
-          </motion.div>
-          <motion.div 
-            className="relative content-start items-start box-border caret-transparent gap-x-4 flex shrink-0 flex-wrap h-min justify-start gap-y-4 w-full overflow-hidden md:gap-x-10 md:flex-nowrap md:gap-y-10"
-            variants={itemVariants}
-          >
-            {heroStats.map((stat, index) => (
-              <motion.div 
-                key={stat.id} 
-                className="relative box-border caret-transparent shrink-0"
-                initial={{ opacity: 0, scale: 0.5 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ 
-                  duration: 0.6, 
-                  delay: 1.8 + index * 0.2,
-                  ease: "easeOut"
-                }}
-              >
-                <div className="relative content-start items-start box-border caret-transparent gap-x-1 flex flex-col h-min justify-start gap-y-1 w-min overflow-hidden">
-                  <div className="relative content-start items-start box-border caret-transparent gap-x-0 flex shrink-0 h-min justify-start gap-y-0 w-min overflow-hidden">
-                    <div className="flex flex-col justify-start text-nowrap">
-                      <p className="stat-number text-white text-nowrap">{stat.prefix}</p>
-                    </div>
-                    <div className="flex flex-col justify-start text-nowrap">
-                      <AnimatedCounter
-                        end={parseInt(stat.value.replace(/\D/g, ''))}
-                        suffix={stat.value.replace(/\d/g, '')}
-                        className="stat-number text-white text-nowrap"
-                        duration={2}
-                      />
-                    </div>
-                    <div className="flex flex-col justify-start text-nowrap">
-                      <p className="stat-number text-white text-nowrap">{stat.suffix}</p>
-                    </div>
-                  </div>
-                  <div className="flex flex-col justify-start text-nowrap">
-                    <p className="stat-label text-white text-nowrap">{stat.label}</p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-  </motion.div>
-  </div>
-        
+        </div>
       </div>
-      </div>
-    </motion.section>
+
+    </section>
   );
 }

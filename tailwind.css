@@ -2,346 +2,228 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-  font-family: 'Geist';
-  src: url('https://fonts.gstatic.com/s/geist/v3/gyByhwUxId8gMEwcGFU.woff2') format("woff2");
-  font-weight: 300;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Geist';
-  src: url('https://fonts.gstatic.com/s/geist/v3/gyByhwUxId8gMEwcGFU.woff2') format("woff2");
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Geist';
-  src: url('https://fonts.gstatic.com/s/geist/v3/gyByhwUxId8gMEwcGFU.woff2') format("woff2");
-  font-weight: 600;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Geist';
-  src: url('https://fonts.gstatic.com/s/geist/v3/gyByhwUxId8gMEwcGFU.woff2') format("woff2");
-  font-weight: 700;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Inter';
-  src: url('https://framerusercontent.com/assets/vQyevYAyHtARFwPqUzQGpnDs.woff2') format("woff2");
-  font-weight: 400;
-  font-style: normal;
-}
+/* Geist is loaded from Google Fonts in index.html with real per-weight files.
+   The previous @font-face block declared four weights that all pointed at the
+   same woff2, so every weight but one was synthesised by the browser. */
 
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 222.2 47.4% 11.2%;
+    --foreground: 240 6% 10%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 240 5% 96%;
+    --muted-foreground: 240 4% 46%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 47.4% 11.2%;
+    --border: 240 6% 90%;
+    --input: 240 6% 90%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
+    --primary: 240 6% 10%;
+    --primary-foreground: 0 0% 100%;
 
-    --card: transparent;
-    --card-foreground: 222.2 47.4% 11.2%;
+    --secondary: 240 5% 96%;
+    --secondary-foreground: 240 6% 10%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --accent: 240 5% 96%;
+    --accent-foreground: 240 6% 10%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-
-    --destructive: 0 100% 50%;
-    --destructive-foreground: 210 40% 98%;
-
-    --ring: 215 20.2% 65.1%;
+    --ring: 240 6% 10%;
 
     --radius: 0.5rem;
+
+    /* Motion tokens — mirrored in src/lib/motion.ts so CSS and JS agree. */
+    --ease-arrive: cubic-bezier(0.16, 1, 0.3, 1);
+    --dur-instant: 120ms;
+    --dur-state: 240ms;
+    --dur-layout: 380ms;
   }
 
-  .dark {
-    --background: 224 71% 4%;
-    --foreground: 213 31% 91%;
-
-    --muted: 223 47% 11%;
-    --muted-foreground: 215.4 16.3% 56.9%;
-
-    --accent: 216 34% 17%;
-    --accent-foreground: 210 40% 98%;
-
-    --popover: 224 71% 4%;
-    --popover-foreground: 215 20.2% 65.1%;
-
-    --border: 216 34% 17%;
-    --input: 216 34% 17%;
-
-    --card: transparent;
-    --card-foreground: 213 31% 91%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 1.2%;
-
-    --secondary: 222.2 47.4% 11.2%;
-    --secondary-foreground: 210 40% 98%;
-
-    --destructive: 0 63% 31%;
-    --destructive-foreground: 210 40% 98%;
-
-    --ring: 216 34% 17%;
-
-    --radius: 0.5rem;
-  }
-}
-
-@layer base {
   * {
     @apply border-border;
   }
 
+  html {
+    scroll-behavior: smooth;
+    /* Fixed header is 72–80px; keep anchored sections clear of it. */
+    scroll-padding-top: 6rem;
+    -webkit-tap-highlight-color: transparent;
+  }
+
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-geist;
     font-feature-settings: "rlig" 1, "calt" 1;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
   }
 
-  /* Elementos semánticos HTML con tipografía consistente UX */
-  h1 {
-    @apply text-2xl md:text-5xl lg:text-6xl xl:text-7xl;
-    @apply font-semibold leading-tight tracking-tight;
-    @apply font-Geist;
+  /* Browser surfaces: these ship with defaults that belong to no design system. */
+  ::selection {
+    background-color: hsl(var(--foreground));
+    color: hsl(var(--background));
   }
 
-  h2 {
-    @apply text-xl md:text-3xl lg:text-4xl xl:text-5xl;
-    @apply font-semibold leading-tight tracking-tight;
-    @apply font-Geist;
+  :where(input, textarea) {
+    caret-color: hsl(var(--foreground));
   }
 
-  h3 {
-    @apply text-lg md:text-2xl lg:text-3xl;
-    @apply font-semibold leading-tight;
-    @apply font-Geist;
+  :where(a, button, input, textarea, select, [tabindex]):focus-visible {
+    outline: 2px solid hsl(var(--foreground));
+    outline-offset: 3px;
+    border-radius: 2px;
   }
 
-  h4 {
-    @apply text-base md:text-xl lg:text-2xl;
-    @apply font-medium leading-tight;
-    @apply font-Geist;
+  /* Numerals in stats and measurements align in columns. */
+  .tabular {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum" 1;
   }
 
-  h5 {
-    @apply text-sm md:text-lg lg:text-xl;
-    @apply font-medium leading-snug;
-    @apply font-Geist;
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--secondary));
+  }
+  ::-webkit-scrollbar-thumb {
+    background: hsl(240 5% 76%);
+    border: 2px solid hsl(var(--secondary));
+    border-radius: 999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground));
+  }
+  * {
+    scrollbar-color: hsl(240 5% 76%) hsl(var(--secondary));
   }
 
-  h6 {
-    @apply text-xs md:text-base lg:text-lg;
-    @apply font-medium leading-snug;
-    @apply font-Geist;
+  /* Utility for carousels that should not show a bar but must stay scrollable. */
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-geist;
+    text-wrap: balance;
   }
 
   p {
-    @apply text-sm md:text-base;
-    @apply font-light leading-relaxed;
-    @apply font-Geist;
-  }
-
-  html {
-    scroll-behavior: smooth;
-  }
-
-  /* Custom scrollbar */
-  ::-webkit-scrollbar {
-    width: 8px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: #f1f1f1;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: 4px;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: #555;
+    text-wrap: pretty;
   }
 }
 
 @layer components {
-  /* Sistema Tipográfico Global - Lemmi Arquitectura */
-  /* Diseñado siguiendo principios UX para legibilidad óptima */
+  /* Typographic scale — Lemmi arquitectura.
+     Headline voice is the heavy grotesque of the printed flyers: tight tracking,
+     high weight contrast against a light body. */
 
-  /* Headings principales */
   .heading-xl {
-    @apply text-3xl md:text-5xl lg:text-6xl xl:text-7xl;
-    @apply font-semibold leading-tight tracking-tight;
-    @apply font-Geist;
+    @apply text-[2rem] leading-[1.02] md:text-6xl lg:text-7xl;
+    @apply font-semibold tracking-[-0.04em] font-geist;
   }
 
   .heading-lg {
-    @apply text-2xl md:text-3xl lg:text-4xl xl:text-5xl;
-    @apply font-semibold leading-tight tracking-tight;
-    @apply font-Geist;
+    @apply text-[1.75rem] leading-[1.06] md:text-4xl lg:text-5xl;
+    @apply font-semibold tracking-[-0.035em] font-geist;
   }
 
   .heading-md {
-    @apply text-xl md:text-2xl lg:text-3xl;
-    @apply font-semibold leading-tight;
-    @apply font-Geist;
+    @apply text-xl leading-tight md:text-2xl lg:text-[1.75rem];
+    @apply font-semibold tracking-[-0.025em] font-geist;
   }
 
   .heading-sm {
-    @apply text-lg md:text-xl lg:text-2xl;
-    @apply font-medium leading-tight;
-    @apply font-Geist;
+    @apply text-lg leading-snug md:text-xl;
+    @apply font-semibold tracking-[-0.02em] font-geist;
   }
 
-  .heading-xs {
-    @apply text-base md:text-lg lg:text-xl;
-    @apply font-medium leading-snug;
-    @apply font-Geist;
-  }
-
-  /* Párrafos y texto de contenido */
   .text-lead {
-    @apply text-base md:text-lg lg:text-xl;
-    @apply font-light leading-relaxed;
-    @apply font-Geist;
+    @apply text-base leading-relaxed md:text-lg lg:text-xl;
+    @apply font-light font-geist;
+    max-width: 68ch;
   }
 
   .text-body {
-    @apply text-sm md:text-base;
-    @apply font-light leading-relaxed;
-    @apply font-Geist;
+    @apply text-[0.9375rem] leading-relaxed md:text-base;
+    @apply font-light font-geist;
+    max-width: 72ch;
   }
 
-  .text-body-sm {
-    @apply text-xs md:text-sm;
-    @apply font-light leading-relaxed;
-    @apply font-Geist;
+  /* Small tracked caps used as the label above every section. */
+  .eyebrow {
+    @apply text-xs font-medium uppercase tracking-[0.14em] font-geist;
+  }
+
+  /* Large, light display type shared by the section headings. */
+  .display {
+    @apply text-4xl font-light leading-[1.02] tracking-[-0.04em] md:text-5xl lg:text-6xl font-geist;
   }
 
   .text-caption {
-    @apply text-xs;
-    @apply font-light leading-normal;
-    @apply font-Geist;
+    @apply text-xs leading-normal font-light font-geist;
   }
 
-  /* Casos especiales para diferentes contextos */
-  .hero-title {
-    @apply text-3xl md:text-5xl lg:text-6xl xl:text-7xl;
-    @apply font-semibold leading-none tracking-tight;
-    @apply font-Geist uppercase;
-    line-height: 0.8;
+  /* The wordmark: LEMMI in wide caps over lowercase arquitectura. */
+  .wordmark {
+    @apply font-geist leading-[0.95] uppercase;
+    letter-spacing: 0.22em;
+    font-weight: 400;
+  }
+  .wordmark-sub {
+    @apply font-geist lowercase;
+    letter-spacing: 0.02em;
+    font-weight: 300;
   }
 
-  .hero-subtitle {
-    @apply text-base md:text-lg lg:text-xl xl:text-2xl;
-    @apply font-light leading-relaxed;
-    @apply font-Geist;
-  }
-
-  .section-title {
-    @apply text-xl md:text-2xl lg:text-3xl xl:text-4xl;
-    @apply font-semibold leading-tight;
-    @apply font-Geist;
-  }
-
-  .section-subtitle {
-    @apply text-sm md:text-base lg:text-lg;
-    @apply font-light leading-relaxed;
-    @apply font-Geist;
-  }
-
-  /* Stats y números destacados */
   .stat-number {
-    @apply text-2xl md:text-3xl lg:text-4xl xl:text-5xl;
-    @apply font-light leading-none;
-    @apply font-Geist;
+    @apply text-3xl leading-none md:text-4xl lg:text-5xl;
+    @apply font-light tracking-[-0.03em] font-geist tabular;
   }
 
   .stat-label {
-    @apply text-sm md:text-base;
-    @apply font-light leading-normal;
-    @apply font-Geist;
+    @apply text-xs leading-snug md:text-sm font-light font-geist;
   }
 
-  /* Botones y CTAs */
-  .cta-text {
-    @apply text-sm md:text-base;
-    @apply font-light tracking-wide;
-    @apply font-Geist;
+  /* Section rhythm: more space above a heading than below it. */
+  .section-shell {
+    @apply w-full px-5 py-16 md:px-10 md:py-20 lg:px-20 lg:py-24;
   }
-
-  /* Navegación */
-  .nav-link {
-    @apply text-sm md:text-base;
-    @apply font-light;
-    @apply font-Geist;
-  }
-
-  .nav-brand {
-    @apply text-lg md:text-xl lg:text-2xl;
-    @apply font-semibold uppercase;
-    @apply font-Geist;
+  .section-inner {
+    @apply mx-auto flex w-full max-w-[1440px] flex-col;
   }
 }
 
 @layer utilities {
-  .animate-float {
-    animation: float 6s ease-in-out infinite;
+  /* The brand's photographic treatment: desaturated stock behind dark type. */
+  .photo-wash {
+    filter: grayscale(0.85) contrast(1.05) brightness(1.08);
   }
 
-  .animate-pulse-slow {
-    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  .hairline {
+    @apply border-zinc-200;
   }
+}
 
-  .animate-bounce-slow {
-    animation: bounce 2s infinite;
+/* Progress fill for the recommendations carousel (also its timer). */
+@keyframes lemmi-fill {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+/* Reduced motion: keep opacity, colour and state legible, drop travel.
+   Components also read the preference in JS via useReducedMotion(). */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
-
-  @keyframes float {
-    0%, 100% {
-      transform: translateY(0px);
-    }
-    50% {
-      transform: translateY(-10px);
-    }
-  }
-
-  .gradient-text {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .glass-effect {
-    backdrop-filter: blur(10px);
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-  }
-
-  .hover-lift {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  .hover-lift:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
