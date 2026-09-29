@@ -10,15 +10,8 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       reporter: ['text', 'lcov'],
-      include: [
-        'src/data/**',
-        'src/lib/**',
-        'src/hooks/**',
-        'src/components/ui/**',
-        'src/components/sections/HeroSection.tsx',
-        'scripts/seo-plugin.ts',
-      ],
-      exclude: ['**/__tests__/**', '**/*.test.*'],
+      include: ['src/**/*.{ts,tsx}', 'scripts/seo-plugin.ts'],
+      exclude: ['**/__tests__/**', '**/*.test.*', 'src/test/**', 'src/**/*.d.ts', 'src/index.tsx', 'src/entry-server.tsx'],
     },
   },
 });
