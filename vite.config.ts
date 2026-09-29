@@ -2,12 +2,13 @@ import react from "@vitejs/plugin-react";
 import tailwind from "tailwindcss";
 import { defineConfig } from "vite";
 import path from "path";
+import { seoPlugin } from "./scripts/seo-plugin";
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
-  publicDir: "./static",
-  base: "./",
+  plugins: [react(), seoPlugin()],
+  publicDir: "./public",
+  base: "/",
   css: {
     postcss: {
       plugins: [tailwind()],

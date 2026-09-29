@@ -1,32 +1,31 @@
-import React from 'react';
 import Header from './components/layout/Header';
 import HeroSection from './components/sections/HeroSection';
-import ServicesSection from './components/sections/ServicesSection';
-import ExpertServicesSection from './components/sections/ExpertServicesSection';
-import PropertiesSection from './components/sections/PropertiesSection';
-import AgentsSection from './components/sections/AgentsSection';
+import PathsSection from './components/sections/PathsSection';
+import ProjectsSection from './components/sections/ProjectsSection';
+import ReelsSection from './components/sections/ReelsSection';
 import TestimonialsSection from './components/sections/TestimonialsSection';
+import TeamSection from './components/sections/TeamSection';
 import FAQSection from './components/sections/FAQSection';
 import ContactSection from './components/sections/ContactSection';
 import Footer from './components/layout/Footer';
+import { WhatsAppFloating } from './components/ui/WhatsAppCTA';
 
-function App() {
+export default function App() {
   return (
-    <div className="min-h-screen bg-white">
+    <div id="top" className="min-h-screen bg-white">
       <Header />
       <main>
         <HeroSection />
-        <ServicesSection />
-        <ExpertServicesSection />
-        <PropertiesSection />
-        <AgentsSection />
+        <PathsSection />
+        <ProjectsSection />
+        <ReelsSection />
         <TestimonialsSection />
+        <TeamSection />
         <FAQSection />
         <ContactSection />
       </main>
       <Footer />
+      <WhatsAppFloating />
     </div>
   );
 }
-
-export default App;
