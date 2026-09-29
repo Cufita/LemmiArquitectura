@@ -5,3 +5,6 @@ coverage
 .impeccable
 *.log
 .DS_Store
+
+.vercel
+.env*
