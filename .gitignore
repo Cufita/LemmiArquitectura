@@ -1,0 +1,7 @@
+node_modules
+dist
+coverage
+.vercel
+.impeccable
+*.log
+.DS_Store
